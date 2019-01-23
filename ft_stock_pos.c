@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/27 17:02:08 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/21 15:01:30 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/23 14:06:41 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -31,6 +31,7 @@ t_pos		*fill_pos(int **str, char *src, int a)
 	int		i;
 	int		j;
 
+	ft_memset(&p, 0, sizeof(p));
 	p = fill_var_pos(src);
 	if(!(p->pos = ft_memalloc(sizeof(int) * p->nb)))
 		return (0);

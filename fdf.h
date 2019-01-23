@@ -6,14 +6,16 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 13:26:18 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/21 16:07:02 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/23 13:24:39 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define BUFF_SIZE 10000
+# define BUFF_SIZE 1
+# define H 1440
+# define L 2640
 
 # include "unistd.h"
 # include <stdio.h>
@@ -34,9 +36,16 @@ typedef struct	s_var
 	int				x1;
 	int				y0;
 	int				y1;
-	double			a;
-	double			b;
 }				t_var;
+
+typedef struct      s_image
+{
+    void            *image;
+    char            *data;
+    int             bpp;
+    int             s_l;
+    int             endian;
+}                   t_image;
 
 typedef struct	s_parce
 {
@@ -57,6 +66,7 @@ typedef struct	s_pos
 	int			line;
 	int			col;
 	int			nb;
+	t_image		image;
 }				t_pos;
 
 char			*ft_read_line(char *str, int fd);
@@ -68,7 +78,10 @@ int				ft_count_nbr(char *str);
 t_pos			*fill_var_pos(char *src);
 t_pos			*fill_pos(int **str, char *src, int a);
 void 			init_window(t_window *w);
-t_var			*init_var(int x1, int y1, int x2, int y2);
+void			fdf2(t_window *w, t_pos *t, t_var *v);
+t_var			*init_var(int x0, int y0, int x1, int y1, int z, int z2);
+t_var			*init_var2(int x0, int y0, int x1, int y1, int z, int z2);
+t_var			*init_var3(int x0, int y0, int x1, int y1, int z);
 void			line(t_var *v, t_window *w);
 void			fdf(t_window *w, t_pos *t, t_var *v);
 double			ft_isometric_x(int x, int y);
