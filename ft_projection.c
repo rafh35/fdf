@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                          LE - /            */
 /*                                                              /             */
-/*   ft_read_line.c                                   .::    .:/ .      .::   */
+/*   ft_projection.c                                  .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2018/11/06 16:44:44 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 15:30:26 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/01/26 12:39:21 by maberkan     #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/26 16:42:37 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-char	*ft_read_line(char *str, int fd)
+double		ft_isometric_x(int x, int y, t_pos *p)
 {
-	char	buff[BUFF_SIZE + 1];
-	int		nbr_oct;
-	char	*tmp;
+	double	x_iso;
 
-	while ((nbr_oct = read(fd, buff, BUFF_SIZE)) > 0)
-	{
-		buff[nbr_oct] = '\0';
-		tmp = str;
-		str = ft_strjoin(tmp, buff);
-		free(tmp);
-	}
-	return (str);
+	x_iso = (sqrt(2) / 2) * ((x - y) * p->ko);
+	return (x_iso);
+}
+
+double		ft_isometric_y(int x, int y, int z, t_pos *p)
+{
+	double	y_iso;
+
+	y_iso = sqrt(2 / 2) * z + (1 / sqrt(3) * ((x + y) * p->ko));
+	return (y_iso);
 }

@@ -6,14 +6,14 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 13:26:18 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/23 13:24:39 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/26 16:42:44 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define BUFF_SIZE 1
+# define BUFF_SIZE 1000
 # define H 1440
 # define L 2640
 
@@ -24,37 +24,37 @@
 # include "./libft/libft.h"
 # include "./libmlx/includes/mlx.h"
 
-typedef struct	s_window
+typedef struct  algo
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-}				t_window;
+	int			dx;
+	int			sx;
+	int			dy;
+	int			sy;
+	int			err;
+	int			e2;
+}				t_algo;
 
 typedef struct	s_var
 {
-	int				x0;
-	int				x1;
-	int				y0;
-	int				y1;
+	int			x0;
+	int			x1;
+	int			y0;
+	int			y1;
 }				t_var;
-
-typedef struct      s_image
-{
-    void            *image;
-    char            *data;
-    int             bpp;
-    int             s_l;
-    int             endian;
-}                   t_image;
 
 typedef struct	s_parce
 {
 	int			x;
 	int			y;
+	int			i;
+	int			len; 
+	int			col;
+	int			nb;
 }				t_parce;
 
 typedef struct	s_position
 {
+	
 	int			x;
 	int			y;
 	int			z;
@@ -63,28 +63,31 @@ typedef struct	s_position
 typedef struct	s_pos
 {
 	t_position	*pos;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	int			hori;
+	int			verti;
+	int			ko;
 	int			line;
 	int			col;
 	int			nb;
-	t_image		image;
 }				t_pos;
 
 char			*ft_read_line(char *str, int fd);
 size_t			ft_c_strlen(const char *str, char c);
 int				ft_count_line(char *str);
-void			fill_parce(t_parce *p);
-int				**ft_parce(char *str, t_parce *p);
+void			fill_parce(t_parce *s);
+int				**ft_parce(char *str, t_parce *s);
 int				ft_count_nbr(char *str);
 t_pos			*fill_var_pos(char *src);
 t_pos			*fill_pos(int **str, char *src, int a);
-void 			init_window(t_window *w);
-void			fdf2(t_window *w, t_pos *t, t_var *v);
+void 			init_window(t_pos *p);
+void			fdf2(t_pos *t, t_var *v);
 t_var			*init_var(int x0, int y0, int x1, int y1, int z, int z2);
 t_var			*init_var2(int x0, int y0, int x1, int y1, int z, int z2);
-t_var			*init_var3(int x0, int y0, int x1, int y1, int z);
-void			line(t_var *v, t_window *w);
-void			fdf(t_window *w, t_pos *t, t_var *v);
-double			ft_isometric_x(int x, int y);
-double			ft_isometric_y(int x, int y, int z);
-
+void			line(t_var *v, t_pos *p);
+void			fdf(t_pos *t, t_var *v);
+double			ft_isometric_x(int x, int y, t_pos *p);
+double			ft_isometric_y(int x, int y, int z, t_pos *p);
+int        		push_key(int key, void *param);
 #endif

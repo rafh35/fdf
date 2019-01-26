@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/27 17:02:08 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/23 14:06:41 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/26 11:53:30 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,19 +27,18 @@ t_pos		*fill_var_pos(char *src)
 
 t_pos		*fill_pos(int **str, char *src, int a)
 {
-	t_pos *p;
+	t_pos	*p;
 	int		i;
 	int		j;
 
-	ft_memset(&p, 0, sizeof(p));
 	p = fill_var_pos(src);
-	if(!(p->pos = ft_memalloc(sizeof(int) * p->nb)))
+	if (!(p->pos = ft_memalloc(sizeof(int) * p->nb)))
 		return (0);
 	i = 0;
 	while (i < p->line)
 	{
 		j = 0;
-		while (j <  p->col)
+		while (j < p->col)
 		{
 			p->pos[a].x = i;
 			p->pos[a].y = j;

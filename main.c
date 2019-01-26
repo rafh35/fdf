@@ -3,91 +3,103 @@
 /*                                                              /             */
 /*   main.c                                           .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: maberkan <maberkan@student.le-201.fr>      +:+   +:    +:    +:+     */
+/*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 5018/120/18 12:20:02 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 5019/01/201 120:208:17 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Created: 2019/01/26 12:05:51 by maberkan     #+#   ##    ##    #+#       */
+/*   Updated: 2019/01/26 16:43:38 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	init_window(t_window *w)
+void		init_window(t_pos *p)
 {
-	w->mlx_ptr = mlx_init();
-	w->win_ptr = mlx_new_window(w->mlx_ptr, -1, -1, L, H, "fdf");
+	p->mlx_ptr = mlx_init();
+	p->win_ptr = mlx_new_window(p->mlx_ptr, -1, -1, L, H, "fdf");
+	p->hori = 100;
+	p->verti = 50;
+	p->ko = 1;
 }
 
-double	ft_isometric_x(int x, int y)
+void    main_loop(t_pos *t, t_var *v)
 {
-	double x_iso;
-
-	x_iso = (sqrt(2) / 2) * (x - y);
-	return (x_iso);
+    fdf(t, v);
+	mlx_hook(t->win_ptr, 2, 0, push_key, t);
+    mlx_loop(t->mlx_ptr);
 }
 
-double	ft_isometric_y(int x, int y, int z)
+int        push_key(int key, void *param)
 {
-	double y_iso;
+    t_pos 		*tmp;
+	t_var		*v = NULL;
 
-	y_iso = sqrt(2 / 2) * z + (1 / sqrt(3) * (x + y));
-	return (y_iso);
+    tmp = param;
+    ft_putnbr(key);
+    ft_putchar('\n');
+    if (key == 123)
+        tmp->hori -= 50;
+    if (key == 124)
+        tmp->hori += 50;
+    if (key == 125)
+        tmp->verti += 50;
+    if (key == 126)
+        tmp->verti -= 50;
+	if (key == 78)
+		tmp->ko += 5;
+	if (key == 69)
+		tmp->ko -= 5;
+    if (key == 53)
+    {
+        mlx_clear_window(tmp->mlx_ptr, tmp->win_ptr);
+		ft_putstr("dégage!!\n");
+        exit(0);
+    }
+	mlx_clear_window(tmp->mlx_ptr, tmp->win_ptr);
+    main_loop(tmp, v);
+    return (1);
 }
 
-void	fdf(t_window *w, t_pos *t, t_var *v)
+void		fdf(t_pos *t, t_var *v)
 {
-	int a = 0;
-	while (a < t->nb)
-	{	
-		v = init_var(t->pos[a].y * 20 + 200, t->pos[a].x * 20, t->pos[a + t->col].y * 20 + 200, t->pos[a + t->col].x * 20, t->pos[a].z * -1, t->pos[a + t->col].z * -1);
+	int		a;
+
+	v = ft_memalloc(sizeof(t_var));
+	a = -1;
+	while (++a < t->nb - t->nb / t->line)
+	{
+		v->x0 = ft_isometric_x(t->pos[a].x, t->pos[a].y, t);
+		v->x1 = ft_isometric_x(t->pos[a + t->col].x, t->pos[a + t->col].y, t);
+		v->y0 = ft_isometric_y(t->pos[a].x, t->pos[a].y, -t->pos[a].z / 2, t);
+		v->y1 = ft_isometric_y(t->pos[a + t->col].x, t->pos[a + t->col].y, -t->pos[a + t->col].z / 2, t);
 		if (t->pos[a].x != t->pos[a + t->col].x && t->pos[a].y == t->pos[a + t->col].y)
-			line(v, w);
-		a++;
+			line(v, t);
 	}
-	a = 0;
-	while (a < t->nb)
-	{	
-		v = init_var(t->pos[a].y * 20 + 200, t->pos[a].x * 20, t->pos[a + 1].y * 20 + 200, t->pos[a + 1].x * 20, t->pos[a].z * -1, t->pos[a + 1].z * -1);
-		if (t->pos[a].x == t->pos[a + 1].x)
-			line(v, w);
-		a++;
-	}
-}
-
-void	fdf2(t_window *w, t_pos *t, t_var *v)
-{
-	int a = 0;
-	while (a < t->nb)
-	{	
-		v = init_var2(t->pos[a].y * 20 + 100, t->pos[a].x * 20, t->pos[a + t->col].y * 20 + 100, t->pos[a + t->col].x * 20, t->pos[a].z * -1, t->pos[a + t->col].z * -1);
-		if (t->pos[a].x != t->pos[a + t->col].x && t->pos[a].y == t->pos[a + t->col].y)
-			line(v, w);
-		a++;
-	}
-	a = 0;
-	while (a < t->nb)
-	{	
-		v = init_var2(t->pos[a].y * 20 + 100, t->pos[a].x * 20, t->pos[a + 1].y * 20 + 100, t->pos[a + 1].x * 20, t->pos[a].z * -1, t->pos[a + 1].z * -1);
-		if (t->pos[a].x == t->pos[a + 1].x)
-			line(v, w);
-		a++;
+	a = -1;
+	while (++a < t->nb)
+	{
+		v->x0 = ft_isometric_x(t->pos[a].x, t->pos[a].y, t);
+		v->x1 = ft_isometric_x(t->pos[a + 1].x, t->pos[a + 1].y, t);
+		v->y0 = ft_isometric_y(t->pos[a].x, t->pos[a].y, -t->pos[a].z / 2, t);
+		v->y1 = ft_isometric_y(t->pos[a + 1].x, t->pos[a + 1].y, -t->pos[a + 1].z / 2, t);
+		if(t->pos[a].x == t->pos[a + 1].x)
+		line(v, t);
 	}
 }
 
-int main(int argc, char **argv)
+
+int			main(int argc, char **argv)
 {
-	int fd;
-	char *str = NULL;
-	int	**tab;
-	int a;
-	t_window w;
-	t_parce p;
-	t_pos *t;
-	t_var *v;
-	int j;
-	j = argc;
-	
+	int			fd;
+	char		*str;
+	int			**tab;
+	int			a;
+	t_parce		p;
+	t_pos		*t;
+	t_var		*v;
+
+	if (argc != 2)
+		exit(0);
 	a = 0;
 	fd = open(argv[1], O_RDONLY);
 	str = ft_strnew(1);
@@ -95,13 +107,11 @@ int main(int argc, char **argv)
 	fill_parce(&p);
 	tab = ft_parce(str, &p);
 	v = NULL;
-	init_window(&w);
 	t = fill_pos(tab, str, a);
-	//fdf(&w, t, v);
-	fdf2(&w, t, v);
-	mlx_loop(w.mlx_ptr);
+	init_window(t);
+	main_loop(t, v);
 	free(str);
 	free(tab);
-	
-	return(0);
+
+	return (0);
 }
