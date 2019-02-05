@@ -6,20 +6,12 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 11:39:45 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/26 16:40:31 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 14:49:41 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/*void	key_hook(t_var *v, int keycode)
-{
-	if (keycode == 123)
-		v->left--;
-	else if (keycode == 124)
-		v->right++;
-}*/
 
 void	line(t_var *v, t_pos *t)
 {
@@ -46,5 +38,5 @@ void	line(t_var *v, t_pos *t)
 			v->y0 += algo->sy;
 		}
 	}
-	free(algo);
+	//free(algo);
 }

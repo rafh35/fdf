@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 13:26:18 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/26 16:42:44 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 14:53:35 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -36,11 +36,11 @@ typedef struct  algo
 
 typedef struct	s_var
 {
-	int			x0;
-	int			x1;
-	int			y0;
-	int			y1;
-}				t_var;
+	int		x0;
+	int		x1;
+	int		y0;
+	int		y1;	
+}					t_var;
 
 typedef struct	s_parce
 {
@@ -68,6 +68,7 @@ typedef struct	s_pos
 	int			hori;
 	int			verti;
 	int			ko;
+	double		alti;
 	int			line;
 	int			col;
 	int			nb;

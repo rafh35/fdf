@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 12:39:21 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/26 16:42:37 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/05 14:07:14 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,6 +25,6 @@ double		ft_isometric_y(int x, int y, int z, t_pos *p)
 {
 	double	y_iso;
 
-	y_iso = sqrt(2 / 2) * z + (1 / sqrt(3) * ((x + y) * p->ko));
+	y_iso = sqrt(2 / 2) * z + 1 / (sqrt(3) * ((x + y) * p->ko));
 	return (y_iso);
 }
