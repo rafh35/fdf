@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/26 15:44:45 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/26 12:04:13 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 14:43:08 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,14 +18,19 @@ void		fill_parce(t_parce *p)
 	ft_memset(&p, 0, sizeof(p));
 }
 
-int			**ft_parce(char *str, t_parce *p)
+void		start(char *str, t_parce *p)
 {
-	int		**tab;
-
 	p->len = ft_count_line(str);
 	p->col = ft_count_nbr(str);
 	p->x = 0;
 	p->i = 0;
+}
+
+int			**ft_parce(char *str, t_parce *p)
+{
+	int		**tab;
+
+	start(str, p);
 	tab = (int**)malloc(sizeof(int*) * p->len);
 	while (str[p->i])
 	{

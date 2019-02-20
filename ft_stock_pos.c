@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/27 17:02:08 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/26 11:53:30 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 14:10:30 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -40,8 +40,8 @@ t_pos		*fill_pos(int **str, char *src, int a)
 		j = 0;
 		while (j < p->col)
 		{
-			p->pos[a].x = i;
-			p->pos[a].y = j;
+			p->pos[a].x = i - p->line / 2;
+			p->pos[a].y = j - p->col / 2;
 			p->pos[a].z = str[i][j];
 			a++;
 			j++;

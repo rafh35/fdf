@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/06 16:44:44 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/24 15:30:26 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 14:38:48 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,11 @@ char	*ft_read_line(char *str, int fd)
 	int		nbr_oct;
 	char	*tmp;
 
+	if (fd < 0 || !str || read(fd, *line, 0) < 0 || BUFF_SIZE < 1)
+	{
+		ft_putstr("error\n");
+		exit(0);
+	}
 	while ((nbr_oct = read(fd, buff, BUFF_SIZE)) > 0)
 	{
 		buff[nbr_oct] = '\0';

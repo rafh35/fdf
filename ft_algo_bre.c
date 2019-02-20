@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 11:39:45 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/05 14:49:41 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 14:55:31 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,8 @@ void	line(t_var *v, t_pos *t)
 	algo->err = (algo->dx > algo->dy ? algo->dx : -algo->dy) / 2;
 	while (!(v->x0 == v->x1 && v->y0 == v->y1))
 	{
-		mlx_pixel_put(t->mlx_ptr, t->win_ptr, v->y0 + t->hori, v->x0 + t->verti, 0x40ECFF);
+		mlx_pixel_put(t->mlx_ptr, t->win_ptr, v->y0 + L / 2 + t->hori,
+		v->x0 + H / 2 + t->verti, 0x90EE90);
 		algo->e2 = algo->err;
 		if (algo->e2 > -algo->dx)
 		{
@@ -38,5 +39,5 @@ void	line(t_var *v, t_pos *t)
 			v->y0 += algo->sy;
 		}
 	}
-	//free(algo);
+	free(algo);
 }
