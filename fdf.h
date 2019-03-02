@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/18 13:26:18 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/20 14:36:21 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/23 12:10:36 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -18,7 +18,6 @@
 # define L 1920
 
 # include "unistd.h"
-# include <stdio.h>
 # include "fcntl.h"
 # include <math.h>
 # include "./libft/libft.h"
@@ -73,6 +72,7 @@ typedef struct	s_pos
 	int			nb;
 	double		a;
 	double		b;
+	int			projection;
 }				t_pos;
 
 char			*ft_read_line(char *str, int fd);
@@ -86,16 +86,17 @@ t_pos			*fill_pos(int **str, char *src, int a);
 void			init_window(t_pos *p, char **argv);
 t_var			*init_var(int x0, int y0, int x1, int y1, int z, int z2);
 t_var			*init_var2(int x0, int y0, int x1, int y1, int z, int z2);
-void			line(t_var *v, t_pos *p);
+void			line(t_var *v, t_pos *p, int a);
 void			fdf(t_pos *t, t_var *v);
 void			fdf2(t_pos *t, t_var *v);
 double			iso_x(int x, int y, t_pos *p);
 double			iso_y(int x, int y, int z, t_pos *p);
 int				push_key(int key, void *param);
-int				ft_cavx(int x, int z, t_pos *p);
-int				ft_cavy(int y, int z, t_pos *p);
+int				ft_cavx(int x, int z);
+int				ft_cavy(int y, int z);
 void			legend(t_pos *t);
 void			main_loop(t_pos *t, t_var *v);
+void			main_loop2(t_pos *t, t_var *v);
 int				push_key(int key, void *param);
 
 #endif

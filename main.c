@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/26 12:05:51 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/20 14:35:10 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/03/02 08:25:23 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,6 +39,14 @@ static char	*start(char **argv, int fd)
 	return (str);
 }
 
+void		free_all(char *str, int **tab, t_pos *t, t_var *v)
+{
+	free(str);
+	free(tab);
+	free(t);
+	free(v);
+}
+
 int			main(int argc, char **argv)
 {
 	char	*str;
@@ -48,7 +56,10 @@ int			main(int argc, char **argv)
 	t_var	*v;
 
 	if (argc != 2)
+	{
+		ft_putstr("error\n");
 		exit(0);
+	}
 	str = start(argv, 0);
 	if (check_error(str) == 0)
 	{
@@ -61,7 +72,6 @@ int			main(int argc, char **argv)
 	t = fill_pos(tab, str, 0);
 	init_window(t, argv);
 	main_loop(t, v);
-	free(str);
-	free(tab);
+	free_all(str, tab, t, v);
 	return (0);
 }
